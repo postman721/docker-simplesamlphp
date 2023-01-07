@@ -25,22 +25,6 @@ docker run --name=idp \
   -d kenchan0130/simplesamlphp
 ```
 
-### Using docker-compose
-
-```yml
-version: "3"
-services:
-  idp:
-    image: kenchan0130/simplesamlphp
-    container_name: idp
-    ports:
-      - "8080:8080"
-    environment:
-      SIMPLESAMLPHP_SP_ENTITY_ID: http://app.example.com
-      SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE: http://localhost/simplesaml/module.php/saml/sp/saml2-acs.php/test-sp
-      SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE: http://localhost/simplesaml/module.php/saml/sp/saml2-logout.php/test-sp
-```
-
 There are two static users configured in the IdP with the following data:
 
 Username|Password
@@ -125,24 +109,6 @@ docker run --name=idp \
   -e SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE=http://localhost/simplesaml/module.php/saml/sp/saml2-logout.php/test-sp \
   -v $PWD/authsources.php:/var/www/simplesamlphp/config/authsources.php \
   -d kenchan0130/simplesamlphp
-```
-
-**docker-compose**
-
-```yml
-version: "3"
-services:
-  idp:
-    image: kenchan0130/simplesamlphp
-    container_name: idp
-    ports:
-      - "8080:8080"
-    environment:
-      SIMPLESAMLPHP_SP_ENTITY_ID: http://app.example.com
-      SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE: http://localhost/simplesaml/module.php/saml/sp/saml2-acs.php/test-sp
-      SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE: http://localhost/simplesaml/module.php/saml/sp/saml2-logout.php/test-sp
-    volumes:
-      - authsources.php:/var/www/simplesamlphp/config/authsources.php
 ```
 
 For detailed attributes, see [SimpleSAMLphp Identity Provider QuickStart#Authentication module](https://simplesamlphp.org/docs/stable/simplesamlphp-idp#section_2).
