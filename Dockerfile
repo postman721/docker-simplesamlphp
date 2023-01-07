@@ -1,33 +1,25 @@
-FROM php:8.2-apache
-LABEL maintainer "Tadayuki Onishi <tt.tanishi100@gmail.com>"
+FROM php:8.2.1-apache
 
 RUN apt-get update && \
     apt-get -y install apt-transport-https git curl vim --no-install-recommends && \
-    rm -r /var/lib/apt/lists/*
-
-RUN curl -sSL -o /tmp/mo https://git.io/get-mo && \
+    rm -r /var/lib/apt/lists/* && \
+    curl -sSL -o /tmp/mo https://git.io/get-mo && \
     chmod +x /tmp/mo
 
-# Docker build
-ARG GIT_REVISION=unkown
-ARG GIT_ORIGIN=unkown
-ARG IMAGE_NAME=unkown
-LABEL git-revision=$GIT_REVISION \
-      git-origin=$GIT_ORIGIN \
-      image-name=$IMAGE_NAME
 
 # SimpleSAMLphp
 ARG SIMPLESAMLPHP_VERSION
-RUN curl -sSL -o /tmp/simplesamlphp.tar.gz https://github.com/simplesamlphp/simplesamlphp/releases/download/v$SIMPLESAMLPHP_VERSION/simplesamlphp-$SIMPLESAMLPHP_VERSION.tar.gz && \
+RUN curl -sSL -o /tmp/simplesamlphp.tar.gz https://github.com/simplesamlphp/simplesamlphp/releases/download/v1.19.7/simplesamlphp-1.19.7.tar.gz && \
     tar xzf /tmp/simplesamlphp.tar.gz -C /tmp && \
     mv /tmp/simplesamlphp-* /var/www/simplesamlphp && \
-    touch /var/www/simplesamlphp/modules/exampleauth/enable
-RUN echo "<?php" > /var/www/simplesamlphp/metadata/shib13-sp-remote.php
-COPY config/simplesamlphp/config.php /var/www/simplesamlphp/config
-COPY config/simplesamlphp/authsources.php /var/www/simplesamlphp/config
+    touch /var/www/simplesamlphp/modules/exampleauth/enable && \
+    echo "<?php" > /var/www/simplesamlphp/metadata/shib13-sp-remote.php 
+
+COPY config/simplesamlphp/config.php config/simplesamlphp/authsources.php /var/www/simplesamlphp/config/
+
 COPY config/simplesamlphp/saml20-sp-remote.php /var/www/simplesamlphp/metadata
-COPY config/simplesamlphp/server.crt /var/www/simplesamlphp/cert/
-COPY config/simplesamlphp/server.pem /var/www/simplesamlphp/cert/
+
+COPY config/simplesamlphp/server.crt config/simplesamlphp/server.pem /var/www/simplesamlphp/cert/
 
 # Apache
 ENV HTTP_PORT 8080
@@ -49,3 +41,4 @@ WORKDIR /var/www/simplesamlphp
 
 # General setup
 EXPOSE ${HTTP_PORT}
+
