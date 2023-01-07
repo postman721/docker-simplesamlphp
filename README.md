@@ -22,7 +22,7 @@ docker run --name=idp \
   -e SIMPLESAMLPHP_SP_ENTITY_ID=http://app.example.com \
   -e SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE=http://localhost/simplesaml/module.php/saml/sp/saml2-acs.php/test-sp \
   -e SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE=http://localhost/simplesaml/module.php/saml/sp/saml2-logout.php/test-sp \
-  -d kenchan0130/simplesamlphp
+  -d jjposti/saml20
 ```
 
 There are two static users configured in the IdP with the following data:
