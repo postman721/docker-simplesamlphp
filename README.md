@@ -108,7 +108,7 @@ docker run --name=idp \
   -e SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE=http://localhost/simplesaml/module.php/saml/sp/saml2-acs.php/test-sp \
   -e SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE=http://localhost/simplesaml/module.php/saml/sp/saml2-logout.php/test-sp \
   -v $PWD/authsources.php:/var/www/simplesamlphp/config/authsources.php \
-  -d kenchan0130/simplesamlphp
+  -d <image>
 ```
 
 For detailed attributes, see [SimpleSAMLphp Identity Provider QuickStart#Authentication module](https://simplesamlphp.org/docs/stable/simplesamlphp-idp#section_2).
@@ -138,7 +138,7 @@ If you save this source as `saml20-sp-remote.php`, you can customize IdP users b
 docker run --name=idp \
   -p 8080:8080 \
   -v saml20-sp-remote.php:/var/www/simplesamlphp/metadata/saml20-sp-remote.php \
-  -d kenchan0130/simplesamlphp
+  -d <image>
 ```
 
 
