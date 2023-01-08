@@ -143,19 +143,6 @@ docker run --name=idp \
   -d kenchan0130/simplesamlphp
 ```
 
-**docker-compose**
-
-```yml
-version: "3"
-services:
-  idp:
-    image: kenchan0130/simplesamlphp
-    container_name: idp
-    ports:
-      - "8080:8080"
-    volumes:
-      - saml20-sp-remote.php:/var/www/simplesamlphp/metadata/saml20-sp-remote.php
-```
 
 For detailed attributes, see [SP remote metadata reference#SAML 2.0 options](https://simplesamlphp.org/docs/stable/simplesamlphp-reference-sp-remote#section_2).
 
